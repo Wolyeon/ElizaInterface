@@ -1,16 +1,18 @@
 <style>
   .content {
-    width: 50%;
-    height: 50%;
-    margin: auto;
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
     text-align: center;
     border: 3px solid purple;
   }
-  .chatbox {
+  .messages {
+    width: 50%;
+    height: 50vh;
     display: flex;
-    flex-direction: column;
-    overflow: hidden;
+    flex-direction: column-reverse;
+    overflow-y: scroll;
+    margin-bottom: auto;
+    border: 3px dotted rgb(37, 255, 121)
   }
   .message {
     margin: 10px;
@@ -28,6 +30,7 @@
     align-self: flex-start;
   }
   form {
+    width: 50%;
     padding: 5px;
     border: 3px solid rgb(81, 255, 0);
     align-items: center;
@@ -40,44 +43,13 @@
 
 <main class="main">
   <h1>Eliza Chat</h1>
-  <div class="content">
-    <div class="chatbox">
-      <div class="message sender-message">
-        Hello!
-      </div>
-      <div class="message receiver-message">
-        What are you doing?
-      </div>
-      <div class="message sender-message">
-        Hello!
-      </div>
-      <div class="message receiver-message">
-        What are you doing?
-      </div>
-      <div class="message sender-message">
-        Hello!
-      </div>
-      <div class="message receiver-message">
-        What are you doing?
-      </div>
-      <div class="message sender-message">
-        Hello!
-      </div>
-      <div class="message receiver-message">
-        What are you doing?
-      </div>
-      <div class="message sender-message">
-        Hello!
-      </div>
-      <div class="message receiver-message">
-        What are you doing?
-      </div>
+  <div class="messages">
+    <div class="message sender-message" *ngFor="let message of conversation">
+      {{message}}
     </div>
-    <form>
-      <input type="text" id="input" name="input" placeholder="Type message here">
-      <input type="button" id="submit" name="submit" value="Send" onclick="sendRequest(input.value)">
-    </form>
   </div>
+ <form>
+  <input type="text" id="input" name="input" placeholder="Type message here">
+  <input type="button" id="submit" name="submit" value= "send" (click)="postMessage()">
+</form>
 </main>
-
-<router-outlet />
