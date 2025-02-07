@@ -9,15 +9,19 @@
     width: 50%;
     height: 50vh;
     display: flex;
-    flex-direction: column-reverse;
-    overflow-y: scroll;
-    margin-bottom: auto;
+    flex-direction: column;
+    overflow-y: auto;
     border: 3px dotted rgb(37, 255, 121)
+  }
+  .messages > :first-child {
+    margin-top: auto !important;
   }
   .message {
     margin: 10px;
     padding: 5px;
-    align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
   }
   .sender-message {
     border: 2px solid red;
@@ -31,7 +35,8 @@
   }
   form {
     width: 50%;
-    padding: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     border: 3px solid rgb(81, 255, 0);
     align-items: center;
   }
@@ -43,13 +48,18 @@
 
 <main class="main">
   <h1>Eliza Chat</h1>
-  <div class="messages">
-    <div class="message sender-message" *ngFor="let message of conversation">
-      {{message}}
+  <div class="messages" #scrollMe [scrollTop]="scrollMe.scrollHeight" *ngIf="conversation.length >= 0">
+    <div class="message" *ngFor="let msg of conversation">
+      <div class="sender-message" *ngIf="msg.sender == 'user'">
+        {{msg.message}}
+      </div>
+      <div class="receiver-message" *ngIf="msg.sender == 'receiver'">
+        {{msg.message}}
+      </div>
     </div>
   </div>
  <form>
-  <input type="text" id="input" name="input" placeholder="Type message here">
+  <input type="text" id="input" name="input" placeholder="Type message here" [(ngModel)]="userIn">
   <input type="button" id="submit" name="submit" value= "send" (click)="postMessage()">
 </form>
 </main>
