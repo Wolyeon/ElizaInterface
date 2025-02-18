@@ -13,6 +13,6 @@ export class ElizaService
 
     public postResponse(resp: string): Observable<string>
     {
-        return this.http.post("http://localhost:8080", resp, {observe: "body", responseType: "text"});
+        return this.http.post("http://localhost:8080", resp, {responseType: "text"});
     }
 }

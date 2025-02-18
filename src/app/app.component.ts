@@ -23,8 +23,12 @@ export class AppComponent {
   public conversation: Array<Message> = [];
 
   public postMessage(): void {
+    this.conversation.push(new Message("user", this.userIn));
     this.es.postResponse(this.userIn).subscribe(
-      data => this.resp = data,
+      data => {this.resp = data;},
+      err => console.log("An error has occured", err),
     );
+    console.log(this.resp);
+    this.conversation.push(new Message("receiver", this.resp));
   }
 }
