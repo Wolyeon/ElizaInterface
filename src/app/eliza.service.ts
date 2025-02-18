@@ -7,12 +7,12 @@ import { Observable } from 'rxjs';
   })
 export class ElizaService
 {
-    private apiURL = 'localhost:8080';
+    private apiURL = "localhost:8080";
 
     constructor(private http: HttpClient) {}
 
-    public postResponse(resp: String): Observable<any>
+    public postResponse(resp: string): Observable<string>
     {
-        return this.http.post<any>(`${this.apiURL}`, resp);
+        return this.http.post("http://localhost:8080", resp, {observe: "body", responseType: "text"});
     }
 }

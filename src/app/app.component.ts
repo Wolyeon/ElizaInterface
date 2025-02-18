@@ -1,9 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { ElizaService } from './eliza.service';
 import { NgFor, NgIf } from '@angular/common';
-import { Observable } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { Message } from './message';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -12,15 +12,19 @@ import { Message } from './message';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
+  constructor(private es: ElizaService, private http: HttpClient) {};
+
   title = 'ElizaInterface';
   userIn = '';
+  resp = '';
 
   // Array carrying the entire conversation on
   // On the client side.
   public conversation: Array<Message> = [];
 
   public postMessage(): void {
-    this.conversation.push(new Message("user", this.userIn));
+    this.es.postResponse(this.userIn).subscribe(
+      data => this.resp = data,
+    );
   }
-
 }
